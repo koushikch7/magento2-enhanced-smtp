@@ -256,6 +256,24 @@ class SaveEmailLog extends TransportBuilder
 
         return $allow;
     }
+// Added attachement
+
+public function addAttachment($file, $name)
+    {
+        if (!empty($file) && file_exists($file)) {
+            $this->message
+                ->createAttachment(
+                    file_get_contents($file),
+                    \Zend_Mime::TYPE_OCTETSTREAM,
+                    \Zend_Mime::DISPOSITION_ATTACHMENT,
+                    \Zend_Mime::ENCODING_BASE64,
+                    basename($name)
+                );
+        }
+        return $this;
+    }
+
+//End of attachement
 
     /**
      * Log emails
